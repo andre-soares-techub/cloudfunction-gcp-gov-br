@@ -1,0 +1,10 @@
+steps:
+- name: 'docker.io/library/python:3.11.4'
+  entrypoint: /bin/sh
+  # Run pip install in the same build step
+  args: [-c, 'pip install -r requirements.txt']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['functions', 'deploy', 'cloudfunction-gcp-gov-br', '--trigger-http', '--runtime', 'python311', '--entry-point', 'call_api']
+options:
+  logging: CLOUD_LOGGING_ONLY
+
